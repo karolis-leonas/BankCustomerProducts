@@ -1,0 +1,65 @@
+
+<div class="jumbotron">
+  <h1>Radio button submit example</h1>
+  <p class="lead">In this example user has to answer questions by selecting radio buttons. Once all questions are answered, user must submit the request and it should return the products, which meet the requirements.</p>
+  <p class="lead">This part showcases template driven forms and their submit logic.</p>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="row">
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <div class="row">
+            <legend class="col-form-label col-sm-3 pt-0">Age</legend>
+            <div class="col-sm-9">
+              <ng-container *ngFor="let age of questionnaire.ages; let i = index">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="ageId" id="{{'ageRadio' + i}}" [value]="age.id" ngModel required>
+                  <label class="form-check-label" for="{{'ageRadio' + i}}">
+                    {{age.name}}
+                  </label>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <div class="row">
+            <legend class="col-form-label col-sm-4 pt-0">Is student?</legend>
+            <div class="col-sm-8">
+              <ng-container *ngFor="let studentStatus of questionnaire.studentStatus; let i = index">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="isStudentId" id="{{'studentStatusRadio' + i}}" [value]="studentStatus.id" ngModel required>
+                  <label class="form-check-label" for="{{'studentStatusRadio' + i}}">
+                    {{studentStatus.name}}
+                  </label>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="col-md-4">
+        <fieldset class="form-group">
+          <div class="row">
+            <legend class="col-form-label col-sm-4 pt-0">Income</legend>
+            <div class="col-sm-8">
+              <ng-container *ngFor="let income of questionnaire.incomes; let i = index">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="incomeId" id="{{'incomeRadio' + i}}" [value]="income.id" ngModel required>
+                  <label class="form-check-label" for="{{'incomeRadio' + i}}">
+                    {{income.name}}
+                  </label>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="!form.valid">Submit</button>
+  </form>
+</div>
+
+<app-products-table [products]="clientProducts"></app-products-table>

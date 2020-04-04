@@ -1,0 +1,25 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <div class="navbar-brand">Bank Customer Products</div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup" aria-expanded="false">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" [routerLink]="['/submit-example']" [routerLinkActive]="['active']">
+        Radio button submit example
+      </a>
+      <a class="nav-item nav-link" [routerLink]="['/dynamic-example']" [routerLinkActive]="['active']">
+        Dropdown dynamic example
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- <main role="main" class="container">
+  <router-outlet></router-outlet>
+</main> -->
+
+<main role="main" class="container">
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,22 @@
+<ng-container *ngIf="products !== null && products.length > 0">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Product name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{product.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+<div class="alert alert-warning" role="alert" *ngIf="products === null">
+  Please select the answers from the form
+</div>
+
+<div class="alert alert-warning" role="alert" *ngIf="products !== null && products.length === 0">
+  No products match the answer data!
+</div>

@@ -1,0 +1,40 @@
+<div class="jumbotron">
+  <h1>Dropdown and automatic calculation example</h1>
+  <p class="lead">In this example user has to answer questions by using dropdowns. Once all dropdowns are selected, the app will request and show products which do meet the requirements.</p>
+  <p class="lead">This part showcases reactive forms and form changes listening logic.</p>
+  <ng-container *ngIf="isFormLoaded">
+    <form [formGroup]="profileForm">
+      <div class="row">
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="age">Age</label>
+                  <select class="form-control" id="age" formControlName="ageId">
+                    <option value="" selected disabled hidden>Choose your age</option>
+                    <option *ngFor="let age of questionnaire.ages" [value]="age.id">{{age.name}}</option>
+                  </select>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="isStudent">Is student?</label>
+                  <select class="form-control" id="isStudent" formControlName="isStudentId">
+                    <option value="" selected disabled hidden>Choose student status</option>
+                    <option *ngFor="let studentStatus of questionnaire.studentStatus" [value]="studentStatus.id">{{studentStatus.name}}</option>
+                  </select>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="form-group">
+                  <label for="income">Income</label>
+                  <select class="form-control" id="income" formControlName="incomeId">
+                    <option value="" selected disabled hidden>Choose your current income</option>
+                    <option *ngFor="let income of questionnaire.incomes" [value]="income.id">{{income.name}}</option>
+                  </select>
+              </div>
+          </div>
+      </div>
+    </form>
+  </ng-container>
+</div>
+
+<app-products-table [products]="clientProducts"></app-products-table>
