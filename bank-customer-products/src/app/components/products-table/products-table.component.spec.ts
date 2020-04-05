@@ -1,28 +1,15 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { inject } from '@angular/core/testing';
 
 import { ProductsTableComponent } from './products-table.component';
 
 describe('ProductsTableComponent', () => {
-  let component: ProductsTableComponent;
-  let fixture: ComponentFixture<ProductsTableComponent>;
+  it('ProductsTableComponent: should create an instance',
+    inject([], () => {
+        const productsTableComponent = new ProductsTableComponent();
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ProductsTableComponent ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ProductsTableComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+        expect(productsTableComponent).toBeTruthy();
+      }
+    )
+  );
 });

@@ -9,11 +9,23 @@ import { DataService } from './services/data.service';
 import { ProductsTableComponent } from './components/products-table/products-table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ProductsService } from './services/products.service';
 
 @NgModule({
   declarations: [AppComponent, SubmitWindowComponent, DynamicWindowComponent, ProductsTableComponent],
-  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, AppRoutingModule, FormsModule],
-  providers: [DataService],
-  bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    FormsModule
+  ],
+  providers: [
+    ProductsService,
+    DataService
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
 export class AnswerObjectModel {
   id: number;
-  name: number;
+  name: string;
 }

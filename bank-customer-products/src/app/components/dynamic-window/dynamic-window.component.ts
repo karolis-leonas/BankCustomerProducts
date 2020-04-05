@@ -45,10 +45,11 @@ export class DynamicWindowComponent implements OnInit, OnDestroy {
 
     this.formChangesSubscription = this.profileForm.valueChanges.subscribe(formValues => {
       const isFormValid = this.profileForm.valid;
-      const isAgeIdPresentAndNumber = formValues.ageId !== null && formValues.ageId !== '' && !isNaN(formValues.ageId);
-      const isStudentStatusIdPresentAndNumber =
-        formValues.isStudentId !== null && formValues.isStudentId !== '' && !isNaN(formValues.isStudentId);
-      const isIncomeIdPresentAndNumber = formValues.incomeId !== null && formValues.incomeId !== '' && !isNaN(formValues.incomeId);
+      const isAgeIdPresentAndNumber = formValues && formValues.ageId !== null && formValues.ageId !== '' && !isNaN(formValues.ageId);
+      const isStudentStatusIdPresentAndNumber = formValues && formValues.isStudentId !== null &&
+        formValues.isStudentId !== '' && !isNaN(formValues.isStudentId);
+      const isIncomeIdPresentAndNumber = formValues && formValues.incomeId !== null &&
+        formValues.incomeId !== '' && !isNaN(formValues.incomeId);
 
       if (isFormValid && isAgeIdPresentAndNumber && isStudentStatusIdPresentAndNumber && isIncomeIdPresentAndNumber) {
         const ageIdNumber = +formValues.ageId;

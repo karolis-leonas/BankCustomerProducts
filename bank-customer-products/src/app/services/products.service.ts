@@ -29,7 +29,6 @@ export class ProductsService {
             }
           });
 
-          console.log(visibleProducts);
           return visibleProducts;
         })
       );

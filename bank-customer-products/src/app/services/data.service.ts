@@ -16,29 +16,41 @@ export class DataService {
 
   constructor(private httpClient: HttpClient) {}
 
+  public setQuestionnaire(mappedQuestionnaire: QuestionnaireModel): void {
+    this.questionnaire = mappedQuestionnaire;
+  }
+
+  public setProducts(mappedProducts: ProductModel[]): void {
+    this.products = mappedProducts;
+  }
+
   public getQuestionnaireDataObservable(): Observable<QuestionnaireModel> {
     return this.questionnaireSubject.asObservable();
   }
 
   loadFormData(): void {
-    if (localStorage.getItem('questionnaire') != null) {
-      const unmappedQuestionnaire = JSON.parse(
-        localStorage.getItem('questionnaire')
-      );
-      this.questionnaire = this.mapQuestionnaireData(unmappedQuestionnaire);
-
+    if (this.questionnaire) {
       this.questionnaireSubject.next(this.questionnaire);
     } else {
-      this.loadInitialQuestionnaireData().subscribe(
-        mappedQuestionnaire => {
-          this.questionnaire = mappedQuestionnaire;
+      if (sessionStorage.getItem('questionnaire') != null) {
+        const unmappedQuestionnaire = JSON.parse(
+          sessionStorage.getItem('questionnaire')
+        );
+        const mappedQuestionnaire = this.mapQuestionnaireData(unmappedQuestionnaire);
+        this.setQuestionnaire(mappedQuestionnaire);
 
-          this.questionnaireSubject.next(this.questionnaire);
-        },
-        error => {
-          console.error(error);
-        }
-      );
+        this.questionnaireSubject.next(this.questionnaire);
+      } else {
+        this.loadInitialQuestionnaireData().subscribe(
+          mappedQuestionnaire => {
+            this.setQuestionnaire(mappedQuestionnaire);
+            this.questionnaireSubject.next(this.questionnaire);
+          },
+          error => {
+            console.error(error);
+          }
+        );
+      }
     }
   }
 
@@ -48,7 +60,7 @@ export class DataService {
         const mappedQuestionnaire = this.mapQuestionnaireData(
           unmappedQuestionnaire
         );
-        localStorage.setItem(
+        sessionStorage.setItem(
           'questionnaire',
           JSON.stringify(mappedQuestionnaire)
         );
@@ -98,20 +110,19 @@ export class DataService {
     if (this.products && this.products.length > 0) {
       return of(this.products);
     } else {
-      if (localStorage.getItem('products') != null) {
-        const unmappedProducts = JSON.parse(localStorage.getItem('products'));
-        this.products = this.mapProductsData(unmappedProducts);
+      if (sessionStorage.getItem('products') != null) {
+        const unmappedProducts = JSON.parse(sessionStorage.getItem('products'));
+        const mappedProducts = this.mapProductsData(unmappedProducts);
+        this.setProducts(mappedProducts);
 
         return of(this.products);
       } else {
-        this.loadInitialProductsData().subscribe(
-          mappedProducts => {
-            this.products = mappedProducts;
-            return of(this.products);
-          },
-          error => {
-            return throwError(error);
-          }
+        return this.loadInitialProductsData().pipe(
+          map((mappedProducts: ProductModel[]) => {
+            this.setProducts(mappedProducts);
+
+            return mappedProducts;
+          })
         );
       }
     }
@@ -121,7 +132,7 @@ export class DataService {
     return this.httpClient.get('../../assets/products.json').pipe(
       map((unmappedProducts: any) => {
         const mappedProducts = this.mapProductsData(unmappedProducts);
-        localStorage.setItem('products', JSON.stringify(mappedProducts));
+        sessionStorage.setItem('products', JSON.stringify(mappedProducts));
 
         return mappedProducts;
       })
